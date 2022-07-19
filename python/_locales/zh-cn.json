@@ -1,0 +1,20 @@
+{
+    "pyFlaskWeb.read|block": "",
+    "pyFlaskWeb.TITLETYPE.h1|menu": "一级标题",
+    "pyFlaskWeb.TITLETYPE.h2|menu": "二级标题",
+    "pyFlaskWeb.TITLETYPE.h3|menu": "三级标题",
+    "pyFlaskWeb.TITLETYPE.h4|menu": "四级标题",
+    "pyFlaskWeb.TITLETYPE.h5|menu": "五级标题",
+    "pyFlaskWeb.TITLETYPE.h6|menu": "六级标题",
+    "pyFlaskWeb.ALIGN.left|menu": "左对齐",
+    "pyFlaskWeb.ALIGN.center|menu": "居中对齐",
+    "pyFlaskWeb.ALIGN.right|menu": "右对齐",
+    "pyFlaskWeb.HB.hr|menu": "横线",
+    "pyFlaskWeb.HB.br|menu": "换行",
+    "pyFlaskWeb.REQ.method|menu": "请求方式",
+    "pyFlaskWeb.REQ.path|menu": "接口名称",
+    "pyFlaskWeb.REQ.headers|menu": "请求头",
+    "pyFlaskWeb.REQ.values|menu": "所有参数"
+
+
+}

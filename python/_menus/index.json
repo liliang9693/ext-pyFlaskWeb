@@ -1,0 +1,17 @@
+{
+    "GP": {
+        "menu": [["GET&POST", "['GET','POST']"],["GET", "['GET']"], ["POST", "['POST']"] ]
+    },    
+    "TITLETYPE": {
+        "menu": [["h1", "h1"],["h2", "h2"], ["h3", "h3"], ["h4", "h4"], ["h5", "h5"], ["h6", "h6"] ]
+    },    
+    "ALIGN": {
+        "menu": [["left", "left"],["center", "center"], ["right", "right"]]
+    },    
+    "HB": {
+        "menu": [["br", "br"],["hr", "hr"]]
+    },    
+    "REQ": {
+        "menu": [["method", "method"],["path", "path"],["headers", "headers"],["values", "values"]]
+    }
+}

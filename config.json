@@ -1,0 +1,28 @@
+{
+  "name": {
+    "zh-cn": "Flask网页设计",
+    "en": "Flask web"
+  },
+  "description": {
+    "zh-cn": "Python模式中使用Flask库和dominate库实现网页服务",
+    "en": "Flask dominate"
+  },
+  "author": "liliang",
+  "email": "969316753@qq.com",
+  "license": "MIT",
+  "isBoard": false,
+  "id": "pyFlaskWeb",
+  "platform": ["win","mac","web","linux"],
+  "version": "0.0.1",
+  "asset": {
+	"python": {
+		"dir": "python/",
+		"main": "main.ts",
+		"dependencies": {
+      "flask":"1.1.4",
+      "dominate":"2.6.0"
+
+      }
+  }
+}
+}
