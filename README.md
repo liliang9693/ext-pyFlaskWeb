@@ -34,8 +34,7 @@
 积木分成两部分，前半部分是搭建网页服务器功能，后半部分是网页内容设计。
 
 ![](./python/_images/block1.png)
-
-![](./python/_images/block2.png)
+![](./python/_images/block3.png)
 
 
 
@@ -70,4 +69,5 @@ PC        |             |              |             | √
 ## Release Logs
 
 * V0.0.1  基础功能完成
-
+* V0.0.2  增加视频图传功能
+* V0.0.3  兼容多级标签

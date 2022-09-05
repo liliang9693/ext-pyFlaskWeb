@@ -28,11 +28,25 @@ namespace pyFlaskWeb{
         let url=parameter.URL.code;
         let func=parameter.FUNC.code;
         let gp=parameter.GP.code;
-        Generator.addInit(`add_route_${url}`,`@flask_app.route('/${url}',methods=${gp})
-def route_${url}():
+        let url_route='/';
+        if(url.length>0){//兼容/开头和非/开头的标签
+            if(url[0]!='/'){
+                url_route='/'+url
+            }else{
+                url_route=url
+            }
+        }
+        let url_funcname = url.replace(/\//g,"_")//将/替代为_，兼容多级/标签
+        //console.log(`url_funcname=${url_funcname}`)
+        //console.log(`url_route=${url_route}`)
+        Generator.addInit(`add_route_${url}`,`@flask_app.route('${url_route}',methods=${gp})
+def route_${url_funcname}():
     return rec_${func}()`)
     
     }
+
+
+
 
     //% block="执行函数[FUNC]" blockType="hat"
     //% FUNC.shadow="normal" FUNC.defl="route_func"
@@ -48,6 +62,11 @@ def route_${url}():
         Generator.addCode(`return ${func}`)
     
     }
+
+
+
+
+
 
     //% block="返回网页文件[HTML].html" blockType="command"
     //% HTML.shadow="normal" HTML.defl="index"
@@ -145,8 +164,23 @@ def route_${url}():
         let txt=parameter.TXT.code;
         let width=parameter.WIDTH.code;
         Generator.addCode(`    img(src="./static/${txt}",width="${width}" )`)
-    
+
     }
+
+
+    //% block="|- 添加视频 " blockType="command"
+    export function html_add_input_video(parameter: any, block: any) {
+        Generator.addCode(`    img(id="cam",src="{{url_for('route_video_feed')}}",alt="视频图像" ) `)
+        Generator.addInit(`add_route_video_feed`,`@flask_app.route('/video_feed')
+def route_video_feed():
+    global video
+    return Response(gen(video),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')`)
+ 
+    }
+
+
+
     //% block="|- 添加链接[LINK] 文字[TXT] " blockType="command"
     //% LINK.shadow="string" LINK.defl="https://unihiker.com"
     //% TXT.shadow="string" TXT.defl="点击跳转"
@@ -173,9 +207,8 @@ def route_${url}():
         Generator.addInit(`add_route_${id}`,`@flask_app.route('/${id}',methods=["POST"])
 def route_${id}():
     return rec_${id}()`)
-    
-    
     }
+
 
 
     //% block="将网页对象[DOC]生成html代码并保存为文件[FILE].html" blockType="command"
@@ -194,5 +227,34 @@ def route_${id}():
     fileObj.write(str(${doc}))`)
     
     }
+
+
+    //% block="打开[ID]号摄像头，传输视频流数据" blockType="command"
+    //% ID.shadow="number" ID.defl="0"
+    export function open_carema(parameter: any, block: any) {
+        let id=parameter.ID.code;
+        Generator.addCode(`print("init camera")`)
+        Generator.addImport(`import cv2`)
+        Generator.addCode(`cap = cv2.VideoCapture(${id}) `)
+        Generator.addCode(`cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)`)
+        Generator.addCode(`cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)`)
+        Generator.addCode(`cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)`)
+        Generator.addCode(`while not cap.isOpened():
+    continue `)         
+        Generator.addCode(`print("cap opened")`)
+        Generator.addCode(`video=None`)
+        Generator.addCode(`def gen(video): 
+    print("genvideo")
+    while True:
+        cv2.waitKey(10)
+        success, image = cap.read()
+        image = cv2.flip(image,-1) #旋转180°
+        ret, jpeg = cv2.imencode('.jpg', image)
+        frame = jpeg.tobytes()
+        yield (b'--frame\\r\\n'
+               b'Content-Type: image/jpeg\\r\\n\\r\\n' + frame + b'\\r\\n\\r\\nhello')
+                   `)
+    }
+
 
 }
