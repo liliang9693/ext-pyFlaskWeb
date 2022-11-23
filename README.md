@@ -25,13 +25,19 @@
 
 ## Summary
 使用Mind+V1.7.2 RC3.0及以上版本包含python模式的版本，在python模式用户库中加载此扩展，可实现使用纯python创建一个网页并在浏览器访问。  
-  
+
 使用Flask库创建网页服务器，使用dominate库实现python生成html代码。
-  
+
 > 注意：Mind+内置的是Flask较新的2.x版本，运行可能会报**No module named 'dataclasses'**错误，此时需要将Flask版本降低到1.x版本即可。  
 > 操作方法：1、打开**库管理**，右上角切换到**清华大学源**，切换到**PIP模式**。  
 > 2、在输入框中先输入```pip uninstall Flask```后点击运行即可卸载当前Falsk版本，等待下方输出**Successfully**。  
 > 3、然后输入```pip install Flask==1.1.4```后点击运行即可安装1.1.4版本Flask，等待下方输出**Successfully**即为安装成功。  
+
+
+
+**使用教程：**
+
+【新课标】信息科技跨学科案例-七年级 向世界介绍我的学校  https://mc.dfrobot.com.cn/thread-314330-1-1.html
 
 
 ## Blocks
