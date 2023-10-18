@@ -28,11 +28,11 @@
 
 使用Flask库创建网页服务器，使用dominate库实现python生成html代码。
 
-> 注意：Mind+内置的是Flask较新的2.x版本，运行可能会报**No module named 'dataclasses'**错误，此时需要将Flask版本降低到1.x版本即可。  
+> 注意：如果报**No module named 'dataclasses'**错误，可以尝试切换Flask版本降低到1.x或者2.x版本即可。  
 > 操作方法：1、打开**库管理**，右上角切换到**清华大学源**，切换到**PIP模式**。  
 > 2、在输入框中先输入```pip uninstall Flask```后点击运行即可卸载当前Falsk版本，等待下方输出**Successfully**。  
 > 3、然后输入```pip install Flask==1.1.4```后点击运行即可安装1.1.4版本Flask，等待下方输出**Successfully**即为安装成功。  
-
+> 3、如果报**cannot import name 'soft_unicode' from 'markupsafe'**错误，可以输入```pip install -U Flask```后点击运行，等待下方输出**Successfully**即为安装成功。 
 
 
 **使用教程：**
@@ -81,3 +81,4 @@ PC        |             |              |             | √
 * V0.0.1  基础功能完成
 * V0.0.2  增加视频图传功能
 * V0.0.3  兼容多级标签
+* V0.0.4  依赖库版本不指定1.x，适配mind+最新版
