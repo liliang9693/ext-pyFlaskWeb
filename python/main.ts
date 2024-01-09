@@ -6,8 +6,7 @@ namespace pyFlaskWeb{
 
     //% block="初始化Flask" blockType="command"
     export function flask_init(parameter: any, block: any) {
-        Generator.addImport(`from flask import Flask,Response,render_template,request`)
-        Generator.addImport(`flask_app = Flask(__name__)`)
+        Generator.addImport(`from flask import Flask,Response,render_template,request\nflask_app = Flask(__name__)`)
  
     }
 
