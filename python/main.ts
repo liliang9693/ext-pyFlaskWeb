@@ -190,16 +190,38 @@ def route_video_feed():
     
     }
     //% block="|- 添加按钮 文字[TXT] 字号[SIZE] 执行函数为[ID]" blockType="command"
-    //% TXT.shadow="string" TXT.defl="A"
+    //% TXT.shadow="string" TXT.defl="Button A"
     //% ID.shadow="normal" ID.defl="route_func"
     //% SIZE.shadow="number" SIZE.defl="20"
     export function html_add_input(parameter: any, block: any) {
         let txt=parameter.TXT.code;
         let id=parameter.ID.code;
         let size=parameter.SIZE.code;
-        Generator.addCode(`    input_(id="${id}", type="button", value=${txt}, style="font-size:${size}px", onclick="button_${id}_Click()")`)
+        Generator.addCode(`    input_(id="button_${id}", type="button", value=${txt}, style="font-size:${size}px", onclick="button_${id}_Click()")`)
 
-        Generator.addDeclaration(`lsadd${id}`,`sc=sc+"function button_${id}_Click(){console.log('${id} click');let xhr = new XMLHttpRequest();xhr.open('post','/${id}');xhr.send('${id}');}"`)
+        txt=txt.replace(/"/g,"")
+        Generator.addDeclaration(`lsadd${id}`,`sc=sc+'''function button_${id}_Click(){
+    console.log('button_${id} click');
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4){
+            if(xhr.status == 200) {
+            console.log(xhr.responseText);  
+            var myTextarea = document.getElementById('myTextarea');
+                if (myTextarea) {
+                    myTextarea.value = xhr.responseText;
+                } else {
+                    console.log('myTextarea does not exist');
+                }
+            }
+        }
+      }
+
+    xhr.open('post','/${id}');
+    xhr.send('clickButton=${txt} ');
+}
+'''`)
     
         id=id.replace(/"/g,"")
 
@@ -209,6 +231,78 @@ def route_${id}():
     }
 
 
+    //% block="|- 添加消息发送框 字号[SIZE] 执行函数为[ID]" blockType="command"
+    //% ID.shadow="normal" ID.defl="route_func"
+    //% SIZE.shadow="number" SIZE.defl="16"
+    export function html_add_text_input(parameter: any, block: any) {
+        let id=parameter.ID.code;
+        let size=parameter.SIZE.code;
+        let btsize: number;
+        if (size >= 2) {
+            btsize = size - 2;
+          } else {
+            btsize = size; 
+          }
+        Generator.addCode(`    input_(id="input_${id}", type="text", style="font-size:${size}px", placeholder="输入内容")`)
+        Generator.addCode(`    input_(id="input_button_${id}", type="button",value="发送", style="font-size:${btsize}px", onclick="input_button_${id}_Click()")`)
+
+        Generator.addDeclaration(`txtadd${id}`,`sc=sc+'''function input_button_${id}_Click(){
+    console.log('input_button_${id} click');
+    let textContent = document.getElementById('input_${id}').value;
+    console.log(textContent);
+    let xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4){
+            if(xhr.status == 200) {
+            console.log(xhr.responseText);  
+            var myTextarea = document.getElementById('myTextarea');
+                if (myTextarea) {
+                    myTextarea.value = xhr.responseText;
+                } else {
+                    console.log('myTextarea does not exist');
+                }
+            }
+        }
+      }
+
+    xhr.open('post','/${id}');
+    xhr.send(textContent);
+}
+'''`)
+    
+        id=id.replace(/"/g,"")
+
+        Generator.addInit(`add_route_${id}`,`@flask_app.route('/${id}',methods=["POST"])
+def route_${id}():
+    return rec_${id}()`)
+    }
+
+
+    //% block="|- 添加服务器返回数据接收框 宽[COLS] 高[ROWS]" blockType="command"
+    //% COLS.shadow="number" COLS.defl="30"
+    //% ROWS.shadow="number" ROWS.defl="10"
+    export function html_add_textarea(parameter: any, block: any) {
+        let COLS=parameter.COLS.code;
+        let ROWS=parameter.ROWS.code;
+
+        Generator.addCode(`    p("服务器返回数据：")`)
+        Generator.addCode(`    button('清空文字', onclick='updateTextarea()')`)
+        Generator.addCode(`    br()`)
+        Generator.addCode(`    textarea("", id='myTextarea', rows="${ROWS}", cols="${COLS}",placeholder="", readonly="true")`)
+        
+
+        Generator.addDeclaration(`txtaddtextarea`,`sc=sc+'''function updateTextarea() {
+    var myTextarea = document.getElementById('myTextarea');
+    if (myTextarea) 
+    {
+        myTextarea.value = '';
+    }else {
+        console.log('myTextarea does not exist');
+    }
+}'''`)
+    
+    }
 
     //% block="将网页对象[DOC]生成html代码并保存为文件[FILE].html" blockType="command"
     //% DOC.shadow="normal" DOC.defl="doc"

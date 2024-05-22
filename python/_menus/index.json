@@ -12,6 +12,6 @@
         "menu": [["br", "br"],["hr", "hr"]]
     },    
     "REQ": {
-        "menu": [["method", "method"],["path", "path"],["headers", "headers"],["values", "values"]]
+        "menu": [["method", "method"],["data", "data.decode('utf-8')"],["path", "path"],["headers", "headers"],["values", "values"]]
     }
 }

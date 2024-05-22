@@ -12,6 +12,7 @@
     "pyFlaskWeb.HB.hr|menu": "横线",
     "pyFlaskWeb.HB.br|menu": "换行",
     "pyFlaskWeb.REQ.method|menu": "请求方式",
+    "pyFlaskWeb.REQ.data|menu": "数据",
     "pyFlaskWeb.REQ.path|menu": "接口名称",
     "pyFlaskWeb.REQ.headers|menu": "请求头",
     "pyFlaskWeb.REQ.values|menu": "所有参数"
